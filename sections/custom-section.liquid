@@ -1,0 +1,67 @@
+<section class="section">
+  <style>
+    .textarea {
+      margin-top: -25rem;
+      margin-bottom: 25rem;
+    }
+  </style>
+  <div class="container">
+    <h2>{{ section.settings.title }}</h2>
+    <div style="text-align:right"><img src="{{ section.settings.image | image_url }}" alt="">
+    </div>
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'image' %}
+        <div class="image">
+          <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image_alt }} ">
+        </div>
+        {% when 'cards' %}
+        <div class="textarea">
+          {{ block.settings.textarea }}
+        </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Motivos",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "cabeçalho",
+        "default": "Titulo"
+      }, {
+        "type": "image_picker",
+        "id": "image",
+        "label": "produto"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Text",
+        "type": "cards",
+        "settings": [
+          {
+            "type": "text",
+            "id": "textarea",
+            "label": "texto",
+            "default": "Texto"
+          }
+        ]
+      }, {
+        "name": "Image",
+        "type": "image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Escolha uma imagem"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
